@@ -8,17 +8,17 @@ import javax.persistence.OneToOne;
 public class WishList extends idHolder {
 
     @OneToOne (mappedBy = "wishList")
-    private Products products;
+    private Product product;
 
     @ManyToOne
     private User user;
 
-    public Products getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(Products products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public User getUser() {

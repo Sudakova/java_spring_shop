@@ -2,11 +2,10 @@ package sudakova.onlineshop.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Products extends idHolder {
+public class Product extends idHolder {
 
     private String name;
 
@@ -14,7 +13,7 @@ public class Products extends idHolder {
 
     private Double price;
 
-    @OneToOne
+    @ManyToOne
     private Category category;
 
     @ManyToOne
@@ -88,7 +87,7 @@ public class Products extends idHolder {
 
     @Override
     public String toString() {
-        return "Products{" +
+        return "Product{" +
                 "name='" + name + '\'' +
                 ", size=" + size +
                 ", price=" + price +

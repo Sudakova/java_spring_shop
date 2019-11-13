@@ -1,24 +1,24 @@
 package sudakova.onlineshop.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Category extends idHolder {
 
-    @OneToOne (mappedBy = "category")
-    private List<Products> products = new ArrayList<>();
+    @OneToMany(mappedBy = "category")
+    private List<Product> products = new ArrayList<>();
 
     private String name;
 
 
-    public List<Products> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Products> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 

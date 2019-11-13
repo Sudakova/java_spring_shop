@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 public class Storage extends idHolder {
 
     @OneToOne (mappedBy = "storage")
-    private Products products;
+    private Product product;
 
     private Integer goodsAmount;
 

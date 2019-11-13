@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import sudakova.onlineshop.entity.Category;
+import sudakova.onlineshop.dto.request.ProductRequest;
+import sudakova.onlineshop.dto.response.DataResponse;
+import sudakova.onlineshop.dto.response.ProductResponse;
+import sudakova.onlineshop.entity.Product;
+import sudakova.onlineshop.exception.WrongInputDataException;
 import sudakova.onlineshop.repository.ProductsRepository;
 
 import java.util.stream.Collectors;
@@ -12,13 +16,12 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     @Autowired
-    private ProductsRepository categoryRepository;
-
+    private ProductsRepository productRepository;
 
 
     public DataResponse<ProductResponse> getAllProducts(Integer page, Integer size,
-                                                           String sortBy, Sort.Direction direction,
-                                                           String name) {
+                                                        String sortBy, Sort.Direction direction,
+                                                        String name) {
         Sort sort = Sort.by(direction, sortBy);
         PageRequest pageRequest = PageRequest.of(page, size, sort);
         Page<Product> productPage;
@@ -35,25 +38,21 @@ public class ProductService {
     }
 
     public void save(ProductRequest productRequest) {
-        Category product = new Product();
+        Product product = new Product();
         product.setName(productRequest.getName());
-        productRepository.save( product);
+        productRepository.save(product);
     }
 
 
     public void update(Long id, ProductRequest productRequest) {
         Product product = getEntityObjectById(id);
-        product.setName( productRequest.getName());
+        product.setName(productRequest.getName());
         productRepository.save(product);
     }
 
     public void delete(Long id) {
         Product product = getEntityObjectById(id);
-        if (product.getCategory().isEmpty()) {
-            productRepository.delete(product);
-        } else {
-            throw new WrongInputDataException("Product with id: " + id + " has some products.");
-        }
+        productRepository.delete(product);
     }
 
     private Product getEntityObjectById(Long id) {

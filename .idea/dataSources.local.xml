@@ -9,7 +9,7 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <introspection-schemas>*:cardealer,onlineshop</introspection-schemas>
+      <introspection-schemas>*:cardealer</introspection-schemas>
     </data-source>
   </component>
 </project>

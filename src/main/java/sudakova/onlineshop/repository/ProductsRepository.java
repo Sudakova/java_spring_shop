@@ -6,20 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import sudakova.onlineshop.entity.Products;
+import sudakova.onlineshop.entity.Product;
 
 import java.util.List;
 
 
 @Repository
-public interface ProductsRepository extends JpaRepository<Products, Long> {
+public interface ProductsRepository extends JpaRepository<Product, Long> {
 
-    List<Products> findAllByNameLike(String name);
+    List<Product> findAllByNameLike(String name);
 
-    Page<Products> findAllByNameLike(String name, Pageable pageable);
+    Page<Product> findAllByNameLike(String name, Pageable pageable);
 
-    @Query("select p from Products p where p.name =: name")
-    List<Products> findByName(@Param("name") String name);
+    @Query("select p from Product p where p.name =: name")
+    List<Product> findByName(@Param("name") String name);
 
 }
 

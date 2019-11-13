@@ -18,14 +18,14 @@ public class History extends idHolder{
     private Double totalPrice;
 
     @OneToMany (mappedBy = "history")
-    private List<Products> productsList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
 
-    public List<Products> getProductsList() {
-        return productsList;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setProductsList(List<Products> productsList) {
-        this.productsList = productsList;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     public User getUser() {

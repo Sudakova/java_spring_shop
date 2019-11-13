@@ -2,7 +2,7 @@ package sudakova.onlineshop.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import sudakova.onlineshop.entity.Products;
+import sudakova.onlineshop.entity.Product;
 
 
 @Getter
@@ -21,13 +21,13 @@ public class ProductResponse {
 
     private Long genderId;
 
-    public ProductResponse(Products products){
-        this.id = products.getId();
-        this.name = products.getName();
-        this.size = products.getSize();
-        this.price = products.getPrice();
-        this.categoryId = products.getCategory().getId();
-        this.genderId = products.getGender().getId();
+    public ProductResponse(Product product){
+        this.id = product.getId();
+        this.name = product.getName();
+        this.size = product.getSize();
+        this.price = product.getPrice();
+        this.categoryId = product.getCategory().getId();
+        this.genderId = product.getGender().getId();
     }
 
 }
