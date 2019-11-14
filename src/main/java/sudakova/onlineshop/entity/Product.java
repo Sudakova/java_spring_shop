@@ -1,11 +1,11 @@
 package sudakova.onlineshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Product extends idHolder {
+public class Product extends IdHolder {
 
     private String name;
 
@@ -14,34 +14,43 @@ public class Product extends idHolder {
     private Double price;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
     private Gender gender;
 
-    @OneToOne
-    private WishList wishList;
+    @ManyToMany
+    private List<WishList> wishList = new ArrayList<>();
 
-    @ManyToOne
-    private History history;
+    @ManyToMany
+    private List<History> history = new ArrayList<>();
 
     @OneToOne
     private Storage storage;
 
 
-    public WishList getWishList() {
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
+
+    public List<WishList> getWishList() {
         return wishList;
     }
 
-    public void setWishList(WishList wishList) {
+    public void setWishList(List<WishList> wishList) {
         this.wishList = wishList;
     }
 
-    public History getHistory() {
+    public List<History> getHistory() {
         return history;
     }
 
-    public void setHistory(History history) {
+    public void setHistory(List<History> history) {
         this.history = history;
     }
 

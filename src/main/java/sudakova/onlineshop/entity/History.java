@@ -1,14 +1,14 @@
 package sudakova.onlineshop.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class History extends idHolder{
+public class History extends IdHolder {
 
     @ManyToOne
     private User user;
@@ -17,7 +17,7 @@ public class History extends idHolder{
 
     private Double totalPrice;
 
-    @OneToMany (mappedBy = "history")
+    @ManyToMany(mappedBy = "history")
     private List<Product> productList = new ArrayList<>();
 
     public List<Product> getProductList() {

@@ -1,8 +1,6 @@
 package sudakova.onlineshop.entity;
 
 
-import sun.net.ftp.FtpDirEntry;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User extends idHolder{
+public class User extends IdHolder {
 
     @OneToOne
     private Discount discount;

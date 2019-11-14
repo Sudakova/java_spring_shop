@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Category extends idHolder {
+public class Category extends IdHolder {
 
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();

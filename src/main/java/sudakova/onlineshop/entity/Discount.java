@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Discount extends idHolder{
+public class Discount extends IdHolder {
 
     @OneToOne (mappedBy = "discount")
     private User user;

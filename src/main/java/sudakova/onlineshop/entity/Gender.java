@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Gender extends idHolder {
+public class Gender extends IdHolder {
 
     private Integer name;
 

@@ -1,56 +1,56 @@
 package sudakova.onlineshop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import sudakova.onlineshop.dto.request.CategoryRequest;
+import sudakova.onlineshop.dto.response.CategoryResponse;
 import sudakova.onlineshop.entity.Category;
+import sudakova.onlineshop.exception.WrongInputDataException;
+import sudakova.onlineshop.repository.CategoryRepository;
 
-import java.util.stream.Collectors;
-
-
+@Service
 public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
 
-
-    public DataResponse<CategoryResponse> getAllCategories(Integer page, Integer size,
-                                                    String sortBy, Sort.Direction direction,
-                                                    String name) {
-        Sort sort = Sort.by(direction, sortBy);
-        PageRequest pageRequest = PageRequest.of(page, size, sort);
-        Page<Category> categoryPage;
-        if (name != null) {
-            categoryPage = categoryRepository.findAllByNameLike("%" + name + "%", pageRequest);
-        } else {
-            categoryPage = categoryRepository.findAll(pageRequest);
-        }
-        return new DataResponse<>(categoryPage.getContent().stream().map(CategoryResponse::new).collect(Collectors.toList()), categoryPage);
-    }
+//    public DataResponse<CategoryResponse> getAllCategories(Integer page, Integer size,
+//                                                           String sortBy, Sort.Direction direction,
+//                                                           String name) {
+//        Sort sort = Sort.by(direction, sortBy);
+//        PageRequest pageRequest = PageRequest.of(page, size, sort);
+//        Page<Category> categoryPage;
+//        if (name != null) {
+//            categoryPage = categoryRepository.findAllByNameLike("%" + name + "%", pageRequest);
+//        } else {
+//            categoryPage = categoryRepository.findAll(pageRequest);
+//        }
+//        return new DataResponse<>(categoryPage.getContent().stream().map(CategoryResponse::new).collect(Collectors.toList()), categoryPage);
+//    }
 
     public CategoryResponse getById(Long id) {
         return new CategoryResponse(getEntityObjectById(id));
     }
 
-    public void save(CategoryRequest brandRequest) {
-        Category brand = new Category();
+    public CategoryResponse save(CategoryRequest brandRequest) {
+        Category category = new Category();
         category.setName(brandRequest.getName());
-        categoryRepository.save( category);
+        return new CategoryResponse(categoryRepository.save(category));
     }
 
 
     public void update(Long id, CategoryRequest categoryRequest) {
         Category category = getEntityObjectById(id);
-        category.setName( categoryRequest.getName());
+        category.setName(categoryRequest.getName());
         categoryRepository.save(category);
     }
 
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         Category category = getEntityObjectById(id);
-        if (category.getCategory().isEmpty()) {
+        if (category.getProducts().isEmpty()) {
             categoryRepository.delete(category);
+            return true;
         } else {
             throw new WrongInputDataException("Category with id: " + id + " has some products.");
         }

@@ -21,7 +21,7 @@ public class CategoryResponse {
     public CategoryResponse(Category category) {
         this.id = category.getId();
         this.name = category.getName();
-        this.productResponses = category.getProducts().
+        this.productResponses = category.getProducts().stream()
                 .map(ProductResponse::new)
                 .collect(Collectors.toList());
     }

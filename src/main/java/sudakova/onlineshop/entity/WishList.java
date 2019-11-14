@@ -1,23 +1,24 @@
 package sudakova.onlineshop.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import java.util.List;
 
 @Entity
-public class WishList extends idHolder {
+public class WishList extends IdHolder {
 
-    @OneToOne (mappedBy = "wishList")
-    private Product product;
+    @ManyToMany(mappedBy = "wishList")
+    private List<Product> product;
 
     @ManyToOne
     private User user;
 
-    public Product getProduct() {
+    public List<Product> getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(List<Product> product) {
         this.product = product;
     }
 
