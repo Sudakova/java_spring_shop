@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sudakova.onlineshop.dto.request.CategoryRequest;
 import sudakova.onlineshop.dto.response.CategoryResponse;
+import sudakova.onlineshop.dto.response.DataResponse;
 import sudakova.onlineshop.entity.Category;
 import sudakova.onlineshop.exception.WrongInputDataException;
 import sudakova.onlineshop.repository.CategoryRepository;
+
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -62,4 +65,7 @@ public class CategoryService {
     }
 
 
+    public DataResponse<CategoryResponse> getAllCategory() {
+        return new DataResponse<>(categoryRepository.findAll().stream().map(CategoryResponse::new).collect(Collectors.toList()));
+    }
 }

@@ -1,10 +1,14 @@
 package sudakova.onlineshop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sudakova.onlineshop.dto.request.ProductRequest;
 import sudakova.onlineshop.dto.response.DataResponse;
 import sudakova.onlineshop.dto.response.ProductResponse;
+import sudakova.onlineshop.entity.Category;
 import sudakova.onlineshop.entity.Product;
 import sudakova.onlineshop.exception.WrongInputDataException;
 import sudakova.onlineshop.repository.ProductRepository;
@@ -18,23 +22,26 @@ public class ProductService {
     private ProductRepository productRepository;
 
 
-//    public DataResponse<ProductResponse> getAllProducts(Integer page, Integer size,
-//                                                        String sortBy, Sort.Direction direction,
-//                                                        String name) {
-//        Sort sort = Sort.by(direction, sortBy);
-//        PageRequest pageRequest = PageRequest.of(page, size, sort);
-//        Page<Product> productPage;
-////        if (name != null) {
-////         //   productPage = productRepository.findAllByNameLike("%" + name + "%", pageRequest);
-////        } else {
-////            productPage = productRepository.findAll(pageRequest);
-////        }
-//        return new DataResponse<>(productPage.getContent().stream().map(ProductResponse::new).collect(Collectors.toList()), productPage);
-//    }
+    public DataResponse<ProductResponse> getAllProducts(Integer page, Integer size,
+                                                        String sortBy, Sort.Direction direction,
+                                                        Long categoryId) {
+        Sort sort = Sort.by(direction, sortBy);
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<Product> productPage;
+        if (categoryId != null) {
+            productPage = productRepository.findByCategoryIdLike(categoryId, pageRequest);
+        } else {
+            productPage = productRepository.findAll(pageRequest);
+        }
+        return new DataResponse<>(productPage.getContent().stream().map(ProductResponse::new).collect(Collectors.toList()), productPage);
+    }
 
     public DataResponse<ProductResponse> getAllProducts(){
         return new DataResponse<>(productRepository.findAll().stream().map(ProductResponse::new).collect(Collectors.toList()));
+    }
 
+    public DataResponse<ProductResponse> getAllProductsByCategory(Category category){
+        return new DataResponse<>(productRepository.findByCategory(category).stream().map(ProductResponse::new).collect(Collectors.toList()));
     }
 
     public ProductResponse getById(Long id) {
