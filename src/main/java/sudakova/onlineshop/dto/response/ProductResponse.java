@@ -21,13 +21,15 @@ public class ProductResponse {
 
     private Long genderId;
 
-    public ProductResponse(Product product){
+    public ProductResponse(Product product) {
         this.id = product.getId();
         this.name = product.getName();
         this.size = product.getSize();
         this.price = product.getPrice();
-        this.categoryId = product.getCategory().getId();
-        this.genderId = product.getGender().getId();
+        if (product.getCategory() != null)
+            this.categoryId = product.getCategory().getId();
+        if (product.getGender() != null)
+            this.genderId = product.getGender().getId();
     }
 
 }
