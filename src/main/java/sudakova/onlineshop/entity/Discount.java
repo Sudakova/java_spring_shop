@@ -2,21 +2,22 @@ package sudakova.onlineshop.entity;
 
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Discount extends IdHolder {
 
-    @OneToOne (mappedBy = "discount")
-    private User user;
+    @OneToMany(mappedBy = "discount")
+    private List<User> user;
 
     private Float sale;
 
     private String name;
 
-    public User getUser() { return user; }
+    public List<User> getUser() { return user; }
 
-    public void setUser(User user) { this.user = user; }
+    public void setUser(List<User> user) { this.user = user; }
 
     public Float getSale() { return sale; }
 

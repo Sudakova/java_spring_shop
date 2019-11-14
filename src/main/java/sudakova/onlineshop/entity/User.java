@@ -3,15 +3,15 @@ package sudakova.onlineshop.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class User extends IdHolder {
 
-    @OneToOne
+    @ManyToOne
     private Discount discount;
 
     @OneToMany (mappedBy = "user")
@@ -26,8 +26,6 @@ public class User extends IdHolder {
     private String email;
 
     private String password;
-
-
 
     public List<WishList> getWishLists() {
         return wishLists;

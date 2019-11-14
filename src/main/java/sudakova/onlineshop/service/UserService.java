@@ -9,6 +9,9 @@ import sudakova.onlineshop.entity.User;
 import sudakova.onlineshop.exception.WrongInputDataException;
 import sudakova.onlineshop.repository.UserRepository;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,20 +28,20 @@ public class UserService {
         return new UserResponse(getEntityObjectById(id));
     }
 
-    public UserResponse login(UserRequest userRequest){
-        User user = userRepository.findByEmail(userRequest.getEmail());
-        if(user!=null){
-            if(user.getPassword().equals(userRequest.getPassword())){
+    public UserResponse login(UserRequest userRequest) {
+        User user = userRepository.getByEmail(userRequest.getEmail()).orElseThrow(()->new WrongInputDataException(""));
+        if (user != null) {
+            if (user.getPassword().equals(hashPassword(userRequest.getPassword()))) {
                 return new UserResponse(user);
-            } else throw  new WrongInputDataException("User with email: " + userRequest.getEmail() + " not found.");
-        } else throw  new WrongInputDataException("User with email: " + userRequest.getEmail() + " not found.");
+            } else throw new WrongInputDataException("User with email: " + userRequest.getEmail() + " not found.");
+        } else throw new WrongInputDataException("User with email: " + userRequest.getEmail() + " not found.");
     }
 
     public UserResponse save(UserRequest userRequest) {
         User user = new User();
         user.setEmail(userRequest.getEmail());
         user.setType(userRequest.getType());
-        user.setPassword(userRequest.getPassword());
+        user.setPassword(hashPassword(userRequest.getPassword()));
         return new UserResponse(userRepository.save(user));
     }
 
@@ -58,6 +61,19 @@ public class UserService {
     private User getEntityObjectById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new WrongInputDataException("User with id: " + id + " not found."));
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.update(password.getBytes());
+            byte[] digest = md5.digest();
+            return DatatypeConverter
+                    .printHexBinary(digest).toUpperCase();
+        } catch (NoSuchAlgorithmException e) {
+            return password;
+        }
+
     }
 
 }
