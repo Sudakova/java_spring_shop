@@ -11,6 +11,7 @@ import sudakova.onlineshop.repository.HistoryRepository;
 import sudakova.onlineshop.repository.ProductRepository;
 import sudakova.onlineshop.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ public class ShopService {
     @Autowired
     private HistoryRepository historyRepository;
 
+    @Transactional
     public boolean buyProducts(BuyRequest buyRequest) {
         User user = userRepository.getOne(buyRequest.getUserId());
         List<Product> productList = buyRequest.getProducts()
@@ -36,6 +38,10 @@ public class ShopService {
                 .collect(Collectors.toList());
         History history = new History();
         history.setDate(new Date());
+        history.setProductList(productList);
+        history.setTotalPrice(productList.stream().mapToDouble(Product::getPrice).sum());
+        history.setUser(user);
+        historyRepository.save(history);
         return true;
     }
 }

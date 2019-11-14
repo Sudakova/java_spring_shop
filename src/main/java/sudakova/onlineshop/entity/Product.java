@@ -23,7 +23,7 @@ public class Product extends IdHolder {
     @ManyToMany
     private List<WishList> wishList = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "productList")
     private List<History> history = new ArrayList<>();
 
     @OneToOne

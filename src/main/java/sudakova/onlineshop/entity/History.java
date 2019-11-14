@@ -17,7 +17,7 @@ public class History extends IdHolder {
 
     private Double totalPrice;
 
-    @ManyToMany(mappedBy = "history")
+    @ManyToMany
     private List<Product> productList = new ArrayList<>();
 
     public List<Product> getProductList() {

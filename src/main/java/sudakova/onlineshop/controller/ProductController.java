@@ -2,10 +2,12 @@ package sudakova.onlineshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sudakova.onlineshop.dto.request.BuyRequest;
 import sudakova.onlineshop.dto.request.ProductRequest;
 import sudakova.onlineshop.dto.response.DataResponse;
 import sudakova.onlineshop.dto.response.ProductResponse;
 import sudakova.onlineshop.service.ProductService;
+import sudakova.onlineshop.service.ShopService;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ShopService shopService;
 
 //    @GetMapping
 //    public DataResponse<ProductResponse> getAll(@RequestParam Integer page, @RequestParam Integer size,
@@ -37,6 +42,11 @@ public class ProductController {
     @PostMapping
     public ProductResponse save(@RequestBody @Valid ProductRequest productRequest) {
         return productService.save(productRequest);
+    }
+
+    @PostMapping("/buy")
+    public boolean buyProducts(@RequestBody BuyRequest buyRequest){
+        return shopService.buyProducts(buyRequest);
     }
 
     @PutMapping("/{id}")
