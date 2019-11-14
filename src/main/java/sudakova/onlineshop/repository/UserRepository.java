@@ -1,7 +1,5 @@
 package sudakova.onlineshop.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,8 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByEmailLike(String email);
 
-    Page<User> findAllByEmailLike(String email, Pageable pageable);
-
     @Query("select u from User u where u.email =: email")
-    List<User> findByEmail(@Param("email") String email);
+    User findByEmail(@Param("email") String email);
 }
