@@ -1,10 +1,7 @@
 package sudakova.onlineshop.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +14,8 @@ public class User extends IdHolder {
     @OneToMany (mappedBy = "user")
     private List<History> histories = new ArrayList<>();
 
-    @OneToMany (mappedBy = "user")
-    private List<WishList> wishLists = new ArrayList<>();
+    @OneToOne
+    private WishList wishList;
 
     private Integer type;
 
@@ -26,14 +23,6 @@ public class User extends IdHolder {
     private String email;
 
     private String password;
-
-    public List<WishList> getWishLists() {
-        return wishLists;
-    }
-
-    public void setWishLists(List<WishList> wishLists) {
-        this.wishLists = wishLists;
-    }
 
     public List<History> getHistories() {
         return histories;
@@ -58,4 +47,12 @@ public class User extends IdHolder {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+
+    public WishList getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(WishList wishList) {
+        this.wishList = wishList;
+    }
 }

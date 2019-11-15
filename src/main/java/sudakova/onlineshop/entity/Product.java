@@ -20,7 +20,7 @@ public class Product extends IdHolder {
     @ManyToOne
     private Gender gender;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "product")
     private List<WishList> wishList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "productList")

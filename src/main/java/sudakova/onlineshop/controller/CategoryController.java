@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sudakova.onlineshop.dto.request.CategoryRequest;
 import sudakova.onlineshop.dto.response.CategoryResponse;
+import sudakova.onlineshop.dto.response.DataResponse;
 import sudakova.onlineshop.service.CategoryService;
 
 import javax.validation.Valid;
@@ -23,10 +24,10 @@ public class CategoryController {
 //        return productService.getAllProducts(page, size, sortBy, direction, name);
 //    }
 //
-//    @GetMapping("/all")
-//    public DataResponse<ProductResponse> getAll() {
-//        return productService.getAllProducts();
-//    }
+    @GetMapping("/all")
+    public DataResponse<CategoryResponse> getAll() {
+        return categoryService.getAllCategory();
+    }
 
     @GetMapping("/{id}")
     public CategoryResponse getById(@PathVariable Long id) {

@@ -2,16 +2,17 @@ package sudakova.onlineshop.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class WishList extends IdHolder {
 
-    @ManyToMany(mappedBy = "wishList")
-    private List<Product> product;
+    @ManyToMany
+    private List<Product> product = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
     private User user;
 
     public List<Product> getProduct() {
