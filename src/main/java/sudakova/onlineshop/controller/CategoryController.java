@@ -34,13 +34,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponse save(@RequestBody @Valid CategoryRequest productRequest) {
-        return categoryService.save(productRequest);
+    public CategoryResponse save(@RequestBody @Valid CategoryRequest categoryRequest) {
+        return categoryService.save(categoryRequest);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody CategoryRequest brandRequest) {
-        categoryService.update(id, brandRequest);
+    public void update(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) {
+        categoryService.update(id, categoryRequest);
     }
 
     @DeleteMapping

@@ -13,7 +13,6 @@ public class Category extends IdHolder {
 
     private String name;
 
-
     public List<Product> getProducts() {
         return products;
     }
