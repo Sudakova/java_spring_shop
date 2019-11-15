@@ -40,8 +40,8 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody CategoryRequest brandRequest) {
-        categoryService.update(id, brandRequest);
+    public void update(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) {
+        categoryService.update(id, categoryRequest);
     }
 
     @DeleteMapping

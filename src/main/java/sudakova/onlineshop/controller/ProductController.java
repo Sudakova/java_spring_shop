@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import sudakova.onlineshop.dto.request.BuyRequest;
+import sudakova.onlineshop.dto.request.FilterProductRequest;
 import sudakova.onlineshop.dto.request.ProductRequest;
 import sudakova.onlineshop.dto.response.DataResponse;
 import sudakova.onlineshop.dto.response.ProductResponse;
@@ -12,6 +13,7 @@ import sudakova.onlineshop.service.ProductService;
 import sudakova.onlineshop.service.ShopService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -43,6 +45,11 @@ public class ProductController {
         return productService.getAllProductsByCategory(category);
     }
 
+    @PostMapping("/filter")
+    public List<ProductResponse> filter(@RequestBody FilterProductRequest filterProductRequest){
+        return productService.filter(filterProductRequest);
+    }
+
     @GetMapping("/{id}")
     public ProductResponse getById(@PathVariable Long id) {
         return productService.getById(id);
@@ -59,8 +66,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody ProductRequest brandRequest) {
-        productService.update(id, brandRequest);
+    public void update(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
+        productService.update(id, productRequest);
     }
 
     @DeleteMapping

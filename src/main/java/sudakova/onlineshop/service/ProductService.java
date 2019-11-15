@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import sudakova.onlineshop.dto.request.FilterProductRequest;
 import sudakova.onlineshop.dto.request.ProductRequest;
 import sudakova.onlineshop.dto.response.DataResponse;
 import sudakova.onlineshop.dto.response.ProductResponse;
@@ -12,7 +13,9 @@ import sudakova.onlineshop.entity.Category;
 import sudakova.onlineshop.entity.Product;
 import sudakova.onlineshop.exception.WrongInputDataException;
 import sudakova.onlineshop.repository.ProductRepository;
+import sudakova.onlineshop.specification.ProductSpecification;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +24,10 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public List<ProductResponse> filter(FilterProductRequest filterProductRequest) {
+        ProductSpecification productSpecification = new ProductSpecification(filterProductRequest);
+        return productRepository.findAll(productSpecification).stream().map(ProductResponse::new).collect(Collectors.toList());
+    }
 
     public DataResponse<ProductResponse> getAllProducts(Integer page, Integer size,
                                                         String sortBy, Sort.Direction direction,

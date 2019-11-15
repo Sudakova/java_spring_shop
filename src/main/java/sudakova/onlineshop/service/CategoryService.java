@@ -36,9 +36,9 @@ public class CategoryService {
         return new CategoryResponse(getEntityObjectById(id));
     }
 
-    public CategoryResponse save(CategoryRequest brandRequest) {
+    public CategoryResponse save(CategoryRequest categoryRequest) {
         Category category = new Category();
-        category.setName(brandRequest.getName());
+        category.setName(categoryRequest.getName());
         return new CategoryResponse(categoryRepository.save(category));
     }
 
